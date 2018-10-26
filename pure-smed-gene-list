@@ -1,0 +1,41 @@
+Emilys-MacBook-Air-3:Desktop Emily$ sort result.tsv > sorted.result.tsv
+#sort alphabetically and save into a new file
+Emilys-MacBook-Air-3:Desktop Emily$ uniq sorted.result.tsv > uniq.sorted.result.tsv
+#delete all the repetitive lines
+Emilys-MacBook-Air-3:Desktop Emily$ wc uniq.sorted.result.tsv 
+    3866   27600  240987 uniq.sorted.result.tsv
+Emilys-MacBook-Air-3:Desktop Emily$ sed -n '3,3866p' uniq.sorted.result.tsv |less
+#get lines from 3 to 3866
+Emilys-MacBook-Air-3:Desktop Emily$ sed -n '3,3866p' uniq.sorted.result.tsv > pure.uniq.sorted.result.tsv
+Emilys-MacBook-Air-3:Desktop Emily$ grep UNVERIFIED pure.uniq.sorted.result.tsv | wc -l
+      22
+Emilys-MacBook-Air-3:Desktop Emily$ grep UNVERIFIED pure.uniq.sorted.result.tsv
+#get all the lines that contain the keyword
+Emilys-MacBook-Air-3:Desktop Emily$ awk '{print $1}' pure.uniq.sorted.result.tsv | grep Schmidtea | wc -l
+    3834
+#count the line that contain the keyword
+Emilys-MacBook-Air-3:Desktop Emily$ awk '{print $1}' pure.uniq.sorted.result.tsv | sort | uniq 
+Schmidtea
+Emilys-MacBook-Air-3:Desktop Emily$ grep TSA pure.uniq.sorted.result.tsv 
+Emilys-MacBook-Air-3:Desktop Emily$ cut -f 1 -d "," final.sorted.result.tsv | less > tail.free.final.result.tsv
+#remove anything after the comma
+Emilys-MacBook-Air-3:Desktop Emily$ cut -f 3- -d " " tail.free.final.result.tsv > somewhat.pure.final.result.tsv
+#remove the name of the specie smed
+Emilys-MacBook-Air-3:Desktop Emily$ grep 'clone' somewhat.pure.final.result.tsv |wc
+    3369   16802  129749
+Emilys-MacBook-Air-3:Desktop Emily$ wc somewhat.pure.final.result.tsv 
+    3834   18374  140804 somewhat.pure.final.result.tsv
+Emilys-MacBook-Air-3:Desktop Emily$ grep 'mRNA' somewhat.pure.final.result.tsv |wc
+    3831   18364  140728
+Emilys-MacBook-Air-3:Desktop Emily$ awk '{gsub("mRNA", "");print}' somewhat.pure.final.result.tsv > mRNA.free.result.tsv
+
+Emilys-MacBook-Air-3:Desktop Emily$ grep 'mRNA' mRNA.free.result.tsv |wc
+       0       0       0
+
+Emilys-MacBook-Air-3:Desktop Emily$ awk '{gsub("clone", "");print}' mRNA.free.result.tsv > free.result.tsv
+Emilys-MacBook-Air-3:Desktop Emily$ less free.result.tsv 
+Emilys-MacBook-Air-3:Desktop Emily$ grep 'clone' free.result.tsv | wc
+       0       0       0
+
+Emilys-MacBook-Air-3:Desktop Emily$ wc free.result.tsv 
+    3834   11174  108635 free.result.tsv
